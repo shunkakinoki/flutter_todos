@@ -14,6 +14,36 @@ class TabSelector extends StatelessWidget {
     @required this.onTabSelected,
   }) : super(key: key);
 
+  IconData getIconData(AppTab tab) {
+    if (tab == AppTab.todos) {
+      return Icons.list;
+    } else if (tab == AppTab.stats) {
+      return Icons.show_chart;
+    } else {
+      return Icons.person;
+    }
+  }
+
+  Key getKey(AppTab tab) {
+    if (tab == AppTab.todos) {
+      return ArchSampleKeys.todoTab;
+    } else if (tab == AppTab.stats) {
+      return ArchSampleKeys.statsTab;
+    } else {
+      return ArchSampleKeys.profileTab;
+    }
+  }
+
+  String getString(AppTab tab, BuildContext context) {
+    if (tab == AppTab.todos) {
+      return ArchSampleLocalizations.of(context).todos;
+    } else if (tab == AppTab.stats) {
+      return ArchSampleLocalizations.of(context).stats;
+    } else {
+      return ArchSampleLocalizations.of(context).profile;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -22,15 +52,8 @@ class TabSelector extends StatelessWidget {
       onTap: (index) => onTabSelected(AppTab.values[index]),
       items: AppTab.values.map((tab) {
         return BottomNavigationBarItem(
-          icon: Icon(
-            tab == AppTab.todos ? Icons.list : Icons.show_chart,
-            key: tab == AppTab.todos
-                ? ArchSampleKeys.todoTab
-                : ArchSampleKeys.statsTab,
-          ),
-          title: Text(tab == AppTab.stats
-              ? ArchSampleLocalizations.of(context).stats
-              : ArchSampleLocalizations.of(context).todos),
+          icon: Icon(getIconData(tab), key: getKey(tab)),
+          title: Text(getString(tab, context)),
         );
       }).toList(),
     );

@@ -38,6 +38,13 @@ class ArchSampleLocalizations {
         args: [],
         locale: locale.toString(),
       );
+  
+  String get profile => Intl.message(
+        'Profile',
+        name: 'profile',
+        args: [],
+        locale: locale.toString(),
+      );
 
   String get showAll => Intl.message(
         'Show All',
